@@ -1,0 +1,2 @@
+# Parallelograms-Detection
+Without opencv 
