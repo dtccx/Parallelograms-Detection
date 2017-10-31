@@ -1,0 +1,19 @@
+Cause it's the first time to process image in OSX/iOS, I used to code in Windows so it's a little bit tricky for me at first.
+Making this introduction to make others who do detection in Mac easier to get involved.
+
+I  Build Enviornment
+1. Add libraries like UIkit, CoreGraphic.
+2.
+
+
+II  A lot diffs, This is Xcode 9.0 vision
+1. create images
+NSString* imageName = [[NSBundle mainBundle]
+                    pathForResource:@"image1" ofType:@"JPG"];
+NSImage* tempImage = [[NSImage alloc] initWithContentsOfFile:imageName];
+
+2.show images
+In ViewController.h
+add 'IBoutlet NSImageView *xx'
+In View........m
+in Dialog, add 'xx=[NSImage Imagenamed:@""];
