@@ -8,60 +8,65 @@ The test images that will be provided to you are in color so you will need to co
 # Steps:
 ## (1) convert them into grayscale images
 
-## convert them into grayscale images by using the formula luminance = 0.30R + 0.59G +
+convert them into grayscale images by using the formula luminance = 0.30R + 0.59G + 0.11B
+```
+function [gray]=grayimg(img)
+%img=imread('TestImage1c.jpg');
+R=double(img(:,:,1));
+G=double(img(:,:,2));
+B=double(img(:,:,3));
+gray=0.30*R + 0.59*G + 0.11*B;
+%fprintf('%f',max(max(gray3)));
+%gray=double(gray3)/double(max(max(gray3)))*255.0;
+```
 
-## 0.11B
+detect edges using the Sobel’s operator,Sobel operator:
 
-## detect edges using the Sobel’s operator,Sobel operator:
+		[-1 0 1]
+Gx=	[-2 0 2]*A
+		[-1 0 1]
+		
+		[-1 -2 -1]
+Gy=	[ 0  0  0]*A
+		[ 1  2  1]
 
-## Gx= *A
-
-## Gy= *A
-
-## G=
+G=   Math.sqrt(Gx^2,Gy^2)
 
 ## Code:
 
 ```
-f unct i on [ gr a y] =gr a yi mg( i mg)
-%i mg =i mr e a d(' Test I ma ge 1c. j pg' );
-R= d o u bl e(i mg( :,:, 1));
-G= d o u bl e(i mg( :, :, 2));
-B= d o u bl e(i mg( :,:, 3));
-gr a y =0. 30 * R + 0. 59* G + 0. 11* B;
-%f pr i nt f(' %f' , ma x( ma x( gr a y3) ));
-%g r a y =d o u bl e( gr a y3) / dou bl e( ma x( ma x( gr a y3) ) ) *25 5. 0;
-cl ear;
-s our ce Pi c =i mr ea d(' Test I ma ge 3. j pg');
-%g r a y Pi c = mat 2gr a y( s our ce Pi c);
-%h a v e zr a y l
-%n e w Gr a y Pi c =r gb 2 gr a y( s our ce Pi c); %c o n vert 3 D - 2D
-gr a y Pi c =gr a yi mg( s our ce Pi c);
-%f i g ur e;
-%i ms h o w( gr a y Pi c);
-[ m, n] =si ze( gr a y Pi c);
-ne wGr a y Pi c =z er os( m, n);
-[ m, n] =si ze( ne wGr a y Pi c);
-%n e w Gr a y Pi c 2 =r gb 2 gr a y( s our ce Pi c);
-s obel Nu m=0;
-s obel Thr es hol d =4 0;%1 40; 2 70-80; 3 40
-f or j =2: m- 1
-f or k=2: n- 1
-sobel Nu m=s qrt (( gr a y Pi c(j-1, k +1) +2 * gr a y Pi c(j, k+1) ...
-+gr a y Pi c(j +1, k +1)-gr a y Pi c(j-1, k-1)-2*gr a y Pi c(j, k-1)-gr a y Pi c(j +1, k-1) ) ^2 +. ..
-( gr ay Pi c(j-1, k-1) +2 * gr a y Pi c(j-1, k) +gr a y Pi c(j-1, k +1)-gr a y Pi c(j +1, k-1) ...
+clear;
+sourcePic=imread('TestImage3.jpg');
+%grayPic=mat2gray(sourcePic);
+ 
+%have zray l
+%newGrayPic=rgb2gray(sourcePic);%convert 3D - 2D
+grayPic=grayimg(sourcePic);
+%figure;
+%imshow(grayPic);
+[m,n]=size(grayPic);
+newGrayPic=zeros(m,n);
+[m,n]=size(newGrayPic);
+%newGrayPic2=rgb2gray(sourcePic);
+sobelNum=0;
+sobelThreshold=40;%1 40; 2 70-80; 3 40
+for j=2:m-1 
+    for k=2:n-1
+        sobelNum=sqrt((grayPic(j-1,k+1)+2*grayPic(j,k+1) ...
+            +grayPic(j+1,k+1)-grayPic(j-1,k-1)-2*grayPic(j,k-1)-grayPic(j+1,k-1))^2+ ...
+            (grayPic(j-1,k-1)+2*grayPic(j-1,k)+grayPic(j-1,k+1)-grayPic(j+1,k-1) ...
+            -2*grayPic(j+1,k)-grayPic(j+1,k+1))^2);
+        if(sobelNum > sobelThreshold)
+            newGrayPic(j,k)=255;
+        else
+            newGrayPic(j,k)=0;
+        end
+    end
+end
+figure;
+imshow(newGrayPic) 
+title('Sobel???????')
 
-- 2*gr a y Pi c(j +1, k)-gr a y Pi c(j +1, k +1) ) ^2);
-if( s obel Nu m > s obel Thr es hol d)
-ne wGr a y Pi c(j, k) =2 5 5;
-el se
-ne wGra y Pi c(j, k) =0;
-end
-end
-e n d
-fi gur e;
-i ms h o w( ne wGr a y Pi c)
-titl e(' Sobel ?????? ?')
 ```
 
 
