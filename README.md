@@ -1,5 +1,11 @@
 # Parallelograms-Detection
+## Project description: 
+Parallelograms appear frequently in images that contain man-made objects. They often correspond to the projections of rectangular surfaces when viewed at an angle that is not perpendicular to the surfaces. In this project, you are to design and implement a program that can detect parallelograms of all sizes in an image.
+Your program will consist of three steps: (1) detect edges using the Sobel’s operator, (2) detect straight line segments using the Hough Transform, and (3) detect parallelograms from the straight-line segments detected in step (2). In step (1), compute edge magnitude using the formula below and then normalize the magnitude values to lie within the range [0,255]. Next, manually choose a threshold value to produce a binary edge map.
+Edge Magnitude =    (Gx and Gy are the horizontal and vertical gradients, respectively.)
+The test images that will be provided to you are in color so you will need to convert them into grayscale images by using the formula luminance = 0.30R + 0.59G + 0.11B, where R, G, and B, are the red, green, and blue components. Test images in both JPEG band RAW image formats will be provided. In the RAW image format, the red, green, and blue components of the pixels are recorded in an interleaved manner, occupying one byte per color component per pixel (See description below).  The RAW image format does not contain any header bytes.
 
+# Steps:
 ## (1) convert them into grayscale images
 
 ## convert them into grayscale images by using the formula luminance = 0.30R + 0.59G +
@@ -44,7 +50,7 @@ f or k=2: n- 1
 sobel Nu m=s qrt (( gr a y Pi c(j-1, k +1) +2 * gr a y Pi c(j, k+1) ...
 +gr a y Pi c(j +1, k +1)-gr a y Pi c(j-1, k-1)-2*gr a y Pi c(j, k-1)-gr a y Pi c(j +1, k-1) ) ^2 +. ..
 ( gr ay Pi c(j-1, k-1) +2 * gr a y Pi c(j-1, k) +gr a y Pi c(j-1, k +1)-gr a y Pi c(j +1, k-1) ...
-```
+
 - 2*gr a y Pi c(j +1, k)-gr a y Pi c(j +1, k +1) ) ^2);
 if( s obel Nu m > s obel Thr es hol d)
 ne wGr a y Pi c(j, k) =2 5 5;
@@ -56,6 +62,7 @@ e n d
 fi gur e;
 i ms h o w( ne wGr a y Pi c)
 titl e(' Sobel ?????? ?')
+```
 
 
 ## In order to detect accurate straight lines, we improve the detection with canny and
@@ -64,6 +71,7 @@ titl e(' Sobel ?????? ?')
 
 ### Code:
 
+```
 f unct i on [ m, t het a, sect or, ca nn y 1, ca nn y 2, bi n] = ca nn y 1st ep( sr c, l o wTh , hi gh Th)
 [ Ay, Ax, di m ] = si ze( sr c);
 if di m>
@@ -165,6 +173,7 @@ end
 end%e n d f or x
 e n d%e n d f or y
 e n d%e n d of f unct i on
+```
 
 ### (2) detect straight line segments using the Hough Transform
 
