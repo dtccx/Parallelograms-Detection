@@ -21,16 +21,6 @@ gray=0.30*R + 0.59*G + 0.11*B;
 ```
 
 detect edges using the Sobel’s operator,Sobel operator:
-
-![](http://latex.codecogs.com/gif.latex?\\frac{1}{$$
-	\begin{matrix}
-	-1 & 0 & 1 \\
-	-2 & 0 & 2 \\
-	-1 & 0 & 1
-	\end{matrix}$$})
-
-
-
 $$
 	\begin{matrix}
 	-1 & 0 & 1 \\
@@ -38,12 +28,12 @@ $$
 	-1 & 0 & 1
 	\end{matrix}
 $$
-
-
 		
-		[-1 -2 -1]
+[-1 -2 -1]
+
 Gy=	[ 0  0  0]*A
-		[ 1  2  1]
+
+[ 1  2  1]
 
 G=   Math.sqrt(Gx^2,Gy^2)
 
