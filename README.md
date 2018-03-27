@@ -22,7 +22,15 @@ gray=0.30*R + 0.59*G + 0.11*B;
 
 detect edges using the Sobel’s operator,Sobel operator:
 
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default">	
+$$
+  \begin{matrix}
+   1 & 2 & 3 \\
+   4 & 5 & 6 \\
+   7 & 8 & 9
+  \end{matrix} \tag{1}
+$$
+</script>
 
 $$
 	\begin{matrix}
@@ -32,13 +40,6 @@ $$
 	\end{matrix}
 $$
 
-$$
-  \begin{matrix}
-   1 & 2 & 3 \\
-   4 & 5 & 6 \\
-   7 & 8 & 9
-  \end{matrix} \tag{1}
-$$
 
 		
 		[-1 -2 -1]
