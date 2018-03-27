@@ -22,9 +22,14 @@ gray=0.30*R + 0.59*G + 0.11*B;
 
 detect edges using the Sobel’s operator,Sobel operator:
 
-		[-1 0 1]
-Gx=	[-2 0 2]*A
-		[-1 0 1]
+Gx=
+$$
+	\begin{matrix}
+	-1 & 0 & 1 \\
+	-2 & 0 & 2 \\
+	-1 & 0 & 1 \\
+	\end{matrix}$$
+*A
 		
 		[-1 -2 -1]
 Gy=	[ 0  0  0]*A
