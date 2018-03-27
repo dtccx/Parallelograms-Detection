@@ -22,7 +22,13 @@ gray=0.30*R + 0.59*G + 0.11*B;
 
 detect edges using the Sobel’s operator,Sobel operator:
 
-![](http://latex.codecogs.com/gif.latex?\\frac{1}{1+sin(x)})
+![](http://latex.codecogs.com/gif.latex?\\$$
+	\begin{matrix}
+	-1 & 0 & 1 \\
+	-2 & 0 & 2 \\
+	-1 & 0 & 1
+	\end{matrix}
+$$)
 
 
 
