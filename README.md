@@ -30,6 +30,14 @@ $$
 	\end{matrix}
 $$
 
+$$
+  \begin{matrix}
+   1 & 2 & 3 \\
+   4 & 5 & 6 \\
+   7 & 8 & 9
+  \end{matrix} \tag{1}
+$$
+
 		
 		[-1 -2 -1]
 Gy=	[ 0  0  0]*A
