@@ -254,15 +254,19 @@ e n d
 ```
 
 ### The result of straight lines detection:
+![picture](pic/pic1.png)
 
 ### Then thin the number of lines:
 
 ### EG:
 
-### thin the number lines from 65->
+### thin the number lines from 65->50
+![picture](pic/pic2.png)
+![picture](pic/pic3.png)
 
 
 ### get the lines couple whose theta was like,
+![picture](pic/pic4.png)
 
 ### And get the lines couple’s points where they cross each other.
 
@@ -271,26 +275,23 @@ e n d
 ### Detect point of parallelograms
 
 ### EG:
+![picture](pic/pic5.png)
 
 
 ### (3) detect parallelograms from the straight-line segments detected in step (2).
 
-### Firstly, determine pairs of parallel lines and from the parallel lines determine candidate
+### Firstly, determine pairs of parallel lines and from the parallel lines determine candidate parallelograms by computing the lines' intersection points.
 
-### parallelograms by computing the lines' intersection points.
-
-### Then compute the number of edge points (in percentage) that are present on each of
-
-### the four sides of the candidate parallelograms; if the percentage is high, it is a
-
-### parallelogram.
+### Then compute the number of edge points (in percentage) that are present on each of the four sides of the candidate parallelograms; if the percentage is high, it is a parallelogram.
 
 ### All parallelogram:
+![picture](pic/pic6.png)
 
 ### parallelogram that is accurate:
-
+![picture](pic/pic7.png)
 
 ### Result and step of the next two img:
+![picture](pic/pic8.png)
 
 ### 1.straight lines:
 
@@ -298,8 +299,9 @@ e n d
 
 
 ### Improve:
+deal with RAW pictures
 
-### Extra Credits (10 points). This part is optional.
+### This part is optional.
 
 
 
