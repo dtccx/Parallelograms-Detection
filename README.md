@@ -294,14 +294,17 @@ e n d
 ![picture](pic/pic8.png)
 
 ### 1.straight lines:
-
+![picture](pic/pic9.png)
 ### 2.parallelogram:
-
-
+![picture](pic/pic10.png)
 ### Improve:
-deal with RAW pictures
+![picture](pic/pic11.png)
 
-### This part is optional.
+
+### This part is optional - deal with RAW pictures
+![picture](pic/pic12.png)
+![picture](pic/pic13.png)
+![picture](pic/pic14.png)
 
 
 
