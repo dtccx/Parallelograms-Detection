@@ -156,34 +156,34 @@ for y=2:(Ay-1)
 end%end for y
 
 
-fory=2:(Ay-1)
-forx=2:(Ax-1)
-ifcanny1(y,x)<lowTh%?????
-canny2(y,x)=0;
-bin(y,x)=0;
-continue;
-elseifcanny1(y,x)>highTh%?????
-canny2(y,x)=canny1(y,x);
-bin(y,x)=1;
-continue;
-else%???????8???????????????????
-tem=[canny1(y-1,x-1),canny1(y-1,x),canny1(y-1,x+1);
-canny1(y,x-1),canny1(y,x),canny1(y,x+1);
-canny1(y+1,x-1),canny1(y+1,x),canny1(y+1,x+1)];
-temMax=max(tem);
-iftemMax(1)>highTh
-canny2(y,x)=temMax(1);
-bin(y,x)=1;
-continue;
-else
-canny2(y,x)=0;
-bin(y,x)=0;
-continue;
-end
-end
-end%endforx
-end%endfory
-end%endoffunction
+for y=2:(Ay-1)
+    for x=2:(Ax-1)
+	if canny1(y,x)<lowTh%?????
+	    canny2(y,x)=0;
+	    bin(y,x)=0;
+	    continue;
+	elseif canny1(y,x)>highTh%?????
+	    canny2(y,x)=canny1(y,x);
+	    bin(y,x)=1;
+	    continue;
+	else%???????8???????????????????
+	    tem=[canny1(y-1,x-1),canny1(y-1,x),canny1(y-1,x+1);
+	    canny1(y,x-1),canny1(y,x),canny1(y,x+1);
+	    canny1(y+1,x-1),canny1(y+1,x),canny1(y+1,x+1)];
+	    temMax=max(tem);
+	    if temMax(1)>highTh
+	    	canny2(y,x)=temMax(1);
+	    	bin(y,x)=1;
+	    	continue;
+	    else
+	    	canny2(y,x)=0;
+	    	bin(y,x)=0;
+	    	continue;
+	    end
+	end
+    end %end for x
+end %end for y
+end%end of function
 
 ```
 
