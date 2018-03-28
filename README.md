@@ -80,109 +80,111 @@ title('Sobel???????')
 ### improve canny with Sobel operator instead of [-1,1;-1,1].
 
 ### Code:
+lose data through converting, see in src to see details
 
 ```
-f unct i on [ m, t het a, sect or, ca nn y 1, ca nn y 2, bi n] = ca nn y 1st ep( sr c, l o wTh , hi gh Th)
-[ Ay, Ax, di m ] = si ze( sr c);
-if di m>
-sr c = r gb2 gr a y( sr c);
-e n d
-sr c = dou bl e( sr c);
-m = zer os( Ay, Ax);
-t het a = zer os( Ay, Ax);
-s ect or = zer os( Ay, Ax);
-c a n n y 1 = zer os( Ay, Ax);%??? ???
-c a n n y 2 = zer os( Ay, Ax);%??? ??? ??
-bi n = zer os( Ay, Ax);
-f or y = 2: ( Ay-1)
-f or x = 2: ( Ax-1)
-gx = sr c( y-1, x+1) + 2*sr c( y, x +1) + sr c( y +1, x +1) - ...
-sr c( y-1, x-1) - 2*sr c( y, x-1) - sr c( y +1, x-1);
-gy = sr c( y +1, x-1) + 2*sr c( y +1, x) + sr c( y +1, x +1) ...
-
-- sr c( y-1, x-1) - 2*sr c( y-1, x) - sr c( y-1, x +1) ;
-m( y, x) = ( gx^2 +g y ^ 2) ^0. 5 ;
-%- - ------------------------------
-t het a( y, x) = at and( gx/ gy) ;
-t e m = t het a( y, x);
-%- - ------------------------------
-if (t e m<6 7. 5) &&( t e m>2 2. 5)
-sect or ( y, x) = 0;
-el sei f (t e m<2 2. 5) &&( t e m>-2 2. 5)
-sect or ( y, x) = 3;
-el sei f (t e m<-2 2. 5) &&( t e m>-6 7. 5)
-sect or ( y, x) = 2;
-el se
-sect or ( y, x) = 1;
+function[m,theta,sector,canny1,canny2,bin]=canny1step(src,lowTh,highTh)
+[Ay,Ax,dim]=size(src);
+//lose data through converting, see in src to see details
+if dim > 
+	src=rgb2gray(src);
 end
-%- - ------------------------------
+src=double(src);
+m=zeros(Ay,Ax);
+theta=zeros(Ay,Ax);
+sector=zeros(Ay,Ax);
+canny1=zeros(Ay,Ax);%??????
+canny2=zeros(Ay,Ax);%????????
+bin=zeros(Ay,Ax);
+for y=2:(Ay-1)
+    for x=2:(Ax-1)
+	gx=src(y-1,x+1)+2*src(y,x+1)+src(y+1,x+1)-...
+	src(y-1,x-1)-2*src(y,x-1)-src(y+1,x-1);
+	gy=src(y+1,x-1)+2*src(y+1,x)+src(y+1,x+1)...
+	-src(y-1,x-1)-2*src(y-1,x)-src(y-1,x+1);
+	m(y,x)=(gx^2+gy^2)^0.5;
+%--------------------------------
+	theta(y,x)=atand(gx/gy);
+	tem=theta(y,x);
+%--------------------------------
+	if(tem<67.5)&&(tem>22.5)
+	    sector(y,x)=0;
+	elseif(tem<22.5)&&(tem>-22.5)
+	    sector(y,x)=3;
+	elseif(tem<-22.5)&&(tem>-67.5)
+	    sector(y,x)=2;
+	else
+	    sector(y,x)=1;
+	end
+%--------------------------------
+    end
 end
-e n d
-%- - - - ---------------------
+%-------------------------
 %??????
-%- - - - --> x
-% 2 1 0
-% 3 X 3
-%y 0 1 2
-f or y = 2: ( Ay-1)
-f or x = 2: ( Ax-1)
-if sect or ( y, x) ==0 %?? - ??
-if ( m( y, x) > m( y-1, x +1) ) &&( m( y, x) > m( y +1, x-1) )
-ca nn y 1( y, x) = m( y, x);
-el se
-ca nn y 1( y, x) = 0;
-end
-el sei f sect or ( y, x) ==1 %?? ??
-if ( m( y, x) > m( y-1, x) ) &&( m( y, x) > m( y +1, x) )
-ca nn y 1( y, x) = m( y, x);
-el se
-ca nn y 1( y, x) = 0;
-end
-el sei f sect or ( y, x) ==2 %?? - ??
-if ( m( y, x) > m( y-1, x-1) ) &&( m( y, x) > m( y +1, x +1) )
-ca nn y 1( y, x) = m( y, x);
-el se
-ca nn y 1( y, x) = 0;
-end
-el sei f sect or ( y, x) ==3 %???
-if ( m( y, x) > m( y, x +1) ) &&( m( y, x) > m( y, x-1) )
-ca nn y 1( y, x) = m( y, x);
-el se
-ca nn y1( y, x) = 0;
-end
-end
-end%e n d f or x
-e n d%e n d f or y
+%------>x
+%210
+%3X3
+%y012
+for y=2:(Ay-1)
+    for x=2:(Ax-1)
+	ifsector(y,x)==0%??-??
+	    if(m(y,x)>m(y-1,x+1))&&(m(y,x)>m(y+1,x-1))
+		canny1(y,x)=m(y,x);
+	    else
+		canny1(y,x)=0;
+    	    end
+	elseifsector(y,x)==1%????
+	    if(m(y,x)>m(y-1,x))&&(m(y,x)>m(y+1,x))
+		canny1(y,x)=m(y,x);
+	    else
+		canny1(y,x)=0;
+	    end
+	elseifsector(y,x)==2%??-??
+	    if(m(y,x)>m(y-1,x-1))&&(m(y,x)>m(y+1,x+1))
+		canny1(y,x)=m(y,x);
+	    else
+		canny1(y,x)=0;
+	    end
+	elseifsector(y,x)==3%???
+	    if(m(y,x)>m(y,x+1))&&(m(y,x)>m(y,x-1))
+		canny1(y,x)=m(y,x);
+	    else
+		canny1(y,x)=0;
+	    end
+	end
+    end%end for x
+end%end for y
 
 
-f or y = 2: ( Ay-1)
-f or x = 2: ( Ax-1)
-if cann y 1( y, x) <l o wTh %??? ??
-ca nn y 2( y, x) = 0;
-bi n( y, x) = 0;
-cont i nue;
-el sei f ca nn y 1( y, x) >hi gh Th %??? ??
-ca nn y 2( y, x) = ca nn y 1( y, x);
-bi n( y, x) = 1;
-cont i nue;
-el se %?? ?? ??? 8? ?? ??? ??? ??? ???? ???
-t e m =[ ca n n y 1( y-1, x-1), cann y 1( y-1, x), cann y 1( y-1, x +1);
-cann y 1( y, x-1), ca nn y 1( y, x), cann y 1( y, x +1) ;
-cann y 1( y +1, x-1), cann y 1( y +1, x), cann y 1( y +1, x +1) ];
-t e mMa x = ma x(t e m) ;
-if t e mMa x( 1) > hi gh Th
-ca nn y 2( y, x) = t e mMa x( 1);
-bi n( y, x) = 1;
-cont i nue;
-el se
-ca nn y 2( y, x) = 0;
-bi n( y, x) = 0;
-cont i nue;
+fory=2:(Ay-1)
+forx=2:(Ax-1)
+ifcanny1(y,x)<lowTh%?????
+canny2(y,x)=0;
+bin(y,x)=0;
+continue;
+elseifcanny1(y,x)>highTh%?????
+canny2(y,x)=canny1(y,x);
+bin(y,x)=1;
+continue;
+else%???????8???????????????????
+tem=[canny1(y-1,x-1),canny1(y-1,x),canny1(y-1,x+1);
+canny1(y,x-1),canny1(y,x),canny1(y,x+1);
+canny1(y+1,x-1),canny1(y+1,x),canny1(y+1,x+1)];
+temMax=max(tem);
+iftemMax(1)>highTh
+canny2(y,x)=temMax(1);
+bin(y,x)=1;
+continue;
+else
+canny2(y,x)=0;
+bin(y,x)=0;
+continue;
 end
 end
-end%e n d f or x
-e n d%e n d f or y
-e n d%e n d of f unct i on
+end%endforx
+end%endfory
+end%endoffunction
+
 ```
 
 ### (2) detect straight line segments using the Hough Transform
