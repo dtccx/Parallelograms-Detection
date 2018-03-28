@@ -203,66 +203,68 @@ end%end of function
 ### Find the max(x,y) in certain local region. Eg,(7*7);
 
 ```
-f unct i on [ h, t het a, r ho] = hou g h Ts( f, dt het a, dr ho)
-if nar gi n < 3
-dr ho = 1;
-e n d
-if nar gi n < 2
-dt het a = 1;
-e n d
-f = dou bl e( f);
-[ M, N] = si ze( f);
-t het a = li ns pac e(-90, 0, ceil ( 90/ dt het a) + 1);
-t het a = [t het a -fli pl r(t het a( 2: end - 1) )];
-nt het a = l engt h(t het a);
-D = s qrt (( M - 1) ^2 + ( N - 1) ^2);
-q = ceil ( D/ dr ho) ;
-nr ho = 2*q - 1;
-r ho = li ns pace(-q*dr ho, q*dr ho, nr ho);
-[ x, y, val ] = fi nd( f);
-x = x - 1; y = y - 1;
-% I ni ti ali ze out put.
-h = zer os( nr ho, l engt h(t het a));
-% To a v oi d e xcessi ve me mor y us a ge, pr ocess 100 0 no nzer o pi xel
-% v al ues at a ti me.
-f or k = 1: ceil (l engt h( val )/ 100 0)
-first = ( k - 1) *10 0 0 + 1;
-l ast = mi n( fi rst +9 9 9, l engt h( x) );
-x_ mat ri x = r ep mat ( x( fi r st:l ast ), 1, nt het a);
-y_ mat ri x = r ep mat ( y( fi r st:l ast ), 1, nt het a);
-val _ mat ri x = r ep mat ( val (fi rst:l ast ), 1, nt het a);
-t het a _ mat ri x = r ep mat (t het a, si ze( x_ mat ri x, 1), 1) *pi/ 180;
-r ho_ mat ri x = x_ mat ri x. *c os(t het a_ mat ri x) + ...
-y_ mat ri x. *si n(t het a _ mat ri x);
-sl ope = ( nr ho - 1)/ (r ho( e nd) - r ho( 1) );
-r ho_ bi n_i nde x = r oun d( sl ope *( r ho _ mat ri x - r ho( 1) ) + 1);
-t het a _bi n_i nde x = r ep mat ( 1: nt het a, si ze( x_ mat ri x, 1), 1);
-h = h + f ull ( s par se( r ho_ bi n_i nde x(: ), t het a _bi n_i nde x(: ), ...
-val _ mat ri x(: ), nr ho, nt het a));
-e n d
-f unct i on [r, c, hne w] = hpea k( h, nho o d)
-if nar gi n < 2
-nho o d = si ze( h)/ 50;
-% Ma ke s ur e t he nei ghb or ho o d si ze i s odd.
-nho o d = ma x( 2*c eil ( nho o d/ 2) + 1, 1);
-e n d
-h ma x = ma x( h( : ));
-h ne w = h; r = []; c = [];
-[ h m, hn] =si ze( h);
-l ocal ma xa =8 0;%2 n d 80; 3r d 5
-l ocal ma x b =1 0;%2 n d 10; 3r d 5
-f or ha =1 +l oc al ma xa: l ocal ma x a * 2: h m-l ocal ma x a
-f or hb =1 +l ocal ma x b: l ocal ma x b * 2: hn-l ocal ma x b
-hne wp =h ne w( ha-l ocal ma xa: ha +l ocal ma xa, hb-l ocal ma x b: hb +l ocal ma x b);
-if( ma x( hne wp( : )) ~=0 &&ma x( h ne wp( : )) >=h ma x * 0. 2)%2 n d 0. 2 3r d0. 15
-[ p, q] =f i nd( hne wp = = ma x( h ne wp( : )));
-p=p +ha-l ocal ma xa-1;
-q=q +h b-l ocal ma x b-1;
-p=p( 1); q =q( 1);
-r( end +1) =p; c( e nd +1) =q;
+function[h,theta,rho]=houghTs(f,dtheta,drho)
+if nargin<3
+    drho=1;
 end
+if nargin<2
+    dtheta=1;
 end
-e n d
+f=double(f);
+[M,N]=size(f);
+theta=linspace(-90,0,ceil(90/dtheta)+1);
+theta=[theta-fliplr(theta(2:end-1))];
+ntheta=length(theta);
+D=sqrt((M-1)^2+(N-1)^2);
+q=ceil(D/drho);
+nrho=2*q-1;
+rho=linspace(-q*drho,q*drho,nrho);
+[x,y,val]=find(f);
+x=x-1;y=y-1;
+%Initializeoutput.
+h=zeros(nrho,length(theta));
+%Toavoidexcessivememoryusage,process1000nonzeropixel
+%valuesatatime.
+for k=1:ceil(length(val)/1000)
+    first=(k-1)*1000+1;
+    last=min(first+999,length(x));
+    x_matrix=repmat(x(first:last),1,ntheta);
+    y_matrix=repmat(y(first:last),1,ntheta);
+    val_matrix=repmat(val(first:last),1,ntheta);
+    theta_matrix=repmat(theta,size(x_matrix,1),1)*pi/180;
+    rho_matrix=x_matrix.*cos(theta_matrix)+...
+    y_matrix.*sin(theta_matrix);
+    slope=(nrho-1)/(rho(end)-rho(1));
+    rho_bin_index=round(slope*(rho_matrix-rho(1))+1);
+    theta_bin_index=repmat(1:ntheta,size(x_matrix,1),1);
+    h=h+full(sparse(rho_bin_index(:),theta_bin_index(:),...
+    val_matrix(:),nrho,ntheta));
+end
+
+function[r,c,hnew]=hpeak(h,nhood)
+if nargin<2
+    nhood=size(h)/50;
+    %Makesuretheneighborhoodsizeisodd.
+    nhood=max(2*ceil(nhood/2)+1,1);
+end
+hmax=max(h(:));
+hnew=h;r=[];c=[];
+[hm,hn]=size(h);
+localmaxa=80;%2nd80;3rd5
+localmaxb=10;%2nd10;3rd5
+for ha=1+localmaxa:localmaxa*2:hm-localmaxa
+    for hb=1+localmaxb:localmaxb*2:hn-localmaxb
+	hnewp=hnew(ha-localmaxa:ha+localmaxa,hb-localmaxb:hb+localmaxb);
+	if(max(hnewp(:))~=0&&max(hnewp(:))>=hmax*0.2)%2nd0.23rd0.15
+ 	    [p,q]=find(hnewp==max(hnewp(:)));
+	    p=p+ha-localmaxa-1;
+	    q=q+hb-localmaxb-1;
+	    p=p(1);q=q(1);
+	    r(end+1)=p;c(end+1)=q;
+	end
+    end
+end
+
 ```
 
 ### The result of straight lines detection:
