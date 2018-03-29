@@ -70,7 +70,7 @@ for j=2:m-1 
 end
 figure;
 imshow(newGrayPic) 
-title('Sobel???????')
+title('Sobel operator')
 
 ```
 
